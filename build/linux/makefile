@@ -1,24 +1,21 @@
 NAME 		:= ensembl_rest_service
-DIR_SRC := $(realpath ../../src)
-DIR_INCLUDE :=$(realpath ../../include)
-DIR_BUILD :=  $(realpath .)
+DIR_BUILD :=  $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
+DIR_SRC := $(realpath $(DIR_BUILD)/../../src)
+DIR_INCLUDE :=$(realpath $(DIR_BUILD)/../../include)
 CC		:= gcc
 CXX		:= g++
 MAKEDEPEND 	:= gcc -MM -MF
 
+VPATH := $(DIR_SRC)
 
 BUILD		:= debug
 
 ifeq ($(DIR_BUILD_UTILS),)
-export DIR_BUILD_UTILS = $(abspath $(realpath ../../../../build_utils/linux))
+export DIR_BUILD_UTILS = $(realpath $(DIR_BUILD)/../../../../build_utils/linux)
 endif
-
 include $(DIR_BUILD_UTILS)/project.properties
 
 export DIR_INSTALL=$(DIR_GRASSROOTS_INSTALL)/services
-
-VPATH	= \
-	$(DIR_SRC) 
 	
 
 INCLUDES = \
