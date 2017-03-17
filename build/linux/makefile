@@ -2,23 +2,21 @@ NAME 		:= ensembl_rest_service
 DIR_BUILD :=  $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
 DIR_SRC := $(realpath $(DIR_BUILD)/../../src)
 DIR_INCLUDE :=$(realpath $(DIR_BUILD)/../../include)
-CC		:= gcc
-CXX		:= g++
-MAKEDEPEND 	:= gcc -MM -MF
+
+ifeq ($(DIR_BUILD_CONFIG),)
+export DIR_BUILD_CONFIG := $(realpath $(DIR_BUILD)/../../../../build-config/linux)
+endif
+
+include $(DIR_BUILD_CONFIG)/project.properties
 
 VPATH := $(DIR_SRC)
 
 BUILD		:= debug
 
-ifeq ($(DIR_BUILD_UTILS),)
-export DIR_BUILD_UTILS = $(realpath $(DIR_BUILD)/../../../../build_utils/linux)
-endif
-include $(DIR_BUILD_UTILS)/project.properties
-
-export DIR_INSTALL=$(DIR_GRASSROOTS_INSTALL)/services
+export DIR_INSTALL := $(DIR_GRASSROOTS_INSTALL)/services
 	
 
-INCLUDES = \
+INCLUDES := \
 	-I$(DIR_INCLUDE) \
 	-I$(DIR_GRASSROOTS_UTIL_INC) \
 	-I$(DIR_GRASSROOTS_UTIL_INC)/containers \
@@ -31,7 +29,7 @@ INCLUDES = \
 	-I$(DIR_UUID_INC)
 	
 	
-SRCS 	= \
+SRCS 	:= \
 	ensembl_rest_service.c \
 	sequence.c 	
 	 
@@ -45,6 +43,6 @@ LDFLAGS += -L$(DIR_JANSSON_LIB) -ljansson -L$(DIR_GRASSROOTS_UTIL_LIB) -l$(GRASS
 	-lcurl
 
 
-include $(DIR_BUILD_UTILS)/generic_makefiles/shared_library.makefile
+include $(DIR_BUILD_CONFIG)/generic_makefiles/shared_library.makefile
 
 
