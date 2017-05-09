@@ -93,7 +93,7 @@ ServicesArray *GetServices (UserDetails *user_p)
 								CloseEnsemblRestService,
 								NULL,
 								true,
-								true,
+								SY_SYNCHRONOUS,
 								data_p);
 							
 							* (services_p -> sa_services_pp) = service_p;
