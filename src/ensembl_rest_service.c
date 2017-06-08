@@ -224,7 +224,7 @@ static ServiceJobSet *RunEnsemblRestService (Service *service_p, ParameterSet *p
 			CurlTool *curl_tool_p = AllocateCurlTool (CM_MEMORY);
 			ServiceJob *job_p = GetServiceJobFromServiceJobSet (service_p -> se_jobs_p, 0);
 
-			job_p -> sj_status = OS_FAILED_TO_START;
+			SetServiceJobStatus (job_p, OS_FAILED_TO_START);
 
 			if (curl_tool_p)
 				{
@@ -240,13 +240,14 @@ static ServiceJobSet *RunEnsemblRestService (Service *service_p, ParameterSet *p
 								{
 									if (AddResultToServiceJob (job_p, result_p))
 										{
-											job_p -> sj_status = OS_SUCCEEDED;
+											SetServiceJobStatus (job_p, OS_SUCCEEDED);
 										}
 									else
 										{
 											char uuid_s [UUID_STRING_BUFFER_SIZE];
 
-											job_p -> sj_status = OS_ERROR;
+											SetServiceJobStatus (job_p, OS_ERROR);
+
 											AddErrorToServiceJob (job_p, ERROR_S, "Failed to store result");
 
 											ConvertUUIDToString (job_p -> sj_id, uuid_s);
@@ -256,7 +257,7 @@ static ServiceJobSet *RunEnsemblRestService (Service *service_p, ParameterSet *p
 								}
 							else
 								{
-									job_p -> sj_status = OS_FAILED;
+									SetServiceJobStatus (job_p, OS_FAILED);
 								}
 
 						}		/* if (SetCurlToolForJSONPost (curl_tool_p)) */
