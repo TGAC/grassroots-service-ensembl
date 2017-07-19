@@ -217,7 +217,7 @@ bool AddSequenceParameters (ServiceData *data_p, ParameterSet *param_set_p)
 
 	if ((param_p = EasyCreateAndAddParameterToParameterSet (data_p, param_set_p, group_p, ES_SEQUENCE_ID.npt_type, ES_SEQUENCE_ID.npt_name_s, "Sequence ID", "An Ensembl stable ID", def, PL_ALL)) != NULL)
 		{
-			LinkedList *options_p = CreateProgramOptionsList ();
+			LinkedList *options_p = CreateParameterOptionsList ();
 
 			if (options_p)
 				{
