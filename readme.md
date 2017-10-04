@@ -1,4 +1,4 @@
-﻿# Ensembl service
+﻿# Ensembl service {#ensembl_service}
 
 The Ensembl service allows the Grassroots Server to use the functionality provided by the [Ensembl REST API](http://rest.ensemblgenomes.org/). Currently only the ability to search for sequences by identifier is implemented. 
 
@@ -12,14 +12,20 @@ The files to build the Ensembl service are in the ```build/<platform>``` directo
 
 If you enter this directory 
 
-```cd build/linux```
+```
+cd build/linux
+```
 
 you can then build the service by typing
 
-```make all```
+```
+make all
+```
 
 and then 
 
-```make install```
+```
+make install
+```
 
 to install the service into the Grassroots system where it will be available for use immediately.
