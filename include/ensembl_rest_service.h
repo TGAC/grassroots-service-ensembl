@@ -34,7 +34,8 @@ extern "C"
 /**
  * Get the ServicesArray containing the Ensembl Services.
  *
- * @param config_p The service configuration data.
+ * @param user_p The UserDetails for the user trying to access the services.
+ * This can be <code>NULL</code>.
  * @return The ServicesArray containing all of the Ensembl Services or
  * <code>NULL</code> upon error.
  * @ingroup ensembl_rest_service
