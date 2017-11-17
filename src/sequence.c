@@ -75,7 +75,6 @@ static json_t *GetSequencesById (const char * const id_s, const char * const con
 
 json_t *RunSequenceSearch (ParameterSet *params_p, CurlTool *curl_tool_p)
 {
-	bool success_flag = true;
 	SharedType value;
 	json_t *resource_json_p = NULL;
 
@@ -85,7 +84,6 @@ json_t *RunSequenceSearch (ParameterSet *params_p, CurlTool *curl_tool_p)
 
 			if (!IsStringEmpty (id_s))
 				{
-					success_flag = false;
 
 					if (GetParameterValueFromParameterSet (params_p, ES_SEQUENCE_TYPE.npt_name_s, &value, true))
 						{
