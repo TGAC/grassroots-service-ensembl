@@ -1,4 +1,4 @@
-﻿# Ensembl service {#ensembl_service}
+﻿# Ensembl service {#ensembl_service_guide}
 
 The Ensembl service allows the Grassroots Server to use the functionality provided by the [Ensembl REST API](http://rest.ensemblgenomes.org/). Currently only the ability to search for sequences by identifier is implemented. 
 
