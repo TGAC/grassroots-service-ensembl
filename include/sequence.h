@@ -84,6 +84,9 @@ ENSEMBL_REST_SERVICE_LOCAL json_t *RunSequenceSearch (ParameterSet *params_p, Cu
 ENSEMBL_REST_SERVICE_LOCAL bool AddSequenceParameters (ServiceData *data_p, ParameterSet *param_set_p);
 
 
+ENSEMBL_REST_SERVICE_LOCAL bool GetSequenceParameterTypeForNamedParameter (const char *name_s, ParameterType *pt_p);
+
+
 ENSEMBL_REST_SERVICE_LOCAL const char **GetSequenceFormatNames (void);
 
 

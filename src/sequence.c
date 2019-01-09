@@ -279,6 +279,30 @@ bool AddSequenceParameters (ServiceData *data_p, ParameterSet *param_set_p)
 }
 
 
+bool GetSequenceParameterTypeForNamedParameter (const char *name_s, ParameterType *pt_p)
+{
+	bool success_flag = true;
+
+	if (strcmp (name_s, ES_SEQUENCE_ID.npt_name_s) == 0)
+		{
+			*pt_p = ES_SEQUENCE_ID.npt_type;
+		}
+	else if (strcmp (name_s, ES_SEQUENCE_TYPE.npt_name_s) == 0)
+		{
+			*pt_p = ES_SEQUENCE_TYPE.npt_type;
+		}
+	else if (strcmp (name_s, ES_CONTENT_TYPE.npt_name_s) == 0)
+		{
+			*pt_p = ES_CONTENT_TYPE.npt_type;
+		}
+	else
+		{
+			success_flag = false;
+		}
+
+	return success_flag;
+}
+
 
 const char **GetSequenceFormatNames (void)
 {

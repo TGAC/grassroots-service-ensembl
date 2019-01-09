@@ -57,6 +57,9 @@ static ParameterSet *GetEnsemblRestServiceParameters (Service *service_p, Resour
 
 static void ReleaseEnsemblRestServiceParameters (Service *service_p, ParameterSet *params_p);
 
+static bool GetEnsemblRestServiceParameterTypesForNamedParameters (struct Service *service_p, const char *param_name_s, ParameterType *pt_p);
+
+
 static ServiceJobSet *RunEnsemblRestService (Service *service_p, ParameterSet *param_set_p, UserDetails *user_p, ProvidersStateTable *providers_p);
 
 static ParameterSet *IsFileForEnsemblRestService (Service *service_p, Resource *resource_p, Handler *handler_p);
@@ -90,6 +93,7 @@ ServicesArray *GetServices (UserDetails *user_p)
 								RunEnsemblRestService,
 								IsFileForEnsemblRestService,
 								GetEnsemblRestServiceParameters,
+								GetEnsemblRestServiceParameterTypesForNamedParameters,
 								ReleaseEnsemblRestServiceParameters,
 								CloseEnsemblRestService,
 								NULL,
@@ -98,7 +102,6 @@ ServicesArray *GetServices (UserDetails *user_p)
 								data_p,
 								GetEnsemblRestServiceMetadata))
 								{
-							
 									* (services_p -> sa_services_pp) = service_p;
 
 									return services_p;
@@ -209,6 +212,18 @@ static ParameterSet *GetEnsemblRestServiceParameters (Service *service_p, Resour
 	return NULL;
 }
 
+
+static bool GetEnsemblRestServiceParameterTypesForNamedParameters (struct Service *service_p, const char *param_name_s, ParameterType *pt_p)
+{
+	bool success_flag = true;
+
+	if (!GetSequenceParameterTypeForNamedParameter (param_name_s, pt_p))
+		{
+			success_flag = false;
+		}
+
+	return success_flag;
+}
 
 static void ReleaseEnsemblRestServiceParameters (Service * UNUSED_PARAM (service_p), ParameterSet *params_p)
 {
