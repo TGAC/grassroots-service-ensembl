@@ -100,7 +100,8 @@ ServicesArray *GetServices (UserDetails *user_p)
 								true,
 								SY_SYNCHRONOUS,
 								data_p,
-								GetEnsemblRestServiceMetadata))
+								GetEnsemblRestServiceMetadata,
+								NULL))
 								{
 									* (services_p -> sa_services_pp) = service_p;
 
