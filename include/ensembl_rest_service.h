@@ -40,7 +40,7 @@ extern "C"
  * <code>NULL</code> upon error.
  * @ingroup ensembl_rest_service
  */
-ENSEMBL_REST_SERVICE_API ServicesArray *GetServices (UserDetails *user_p);
+ENSEMBL_REST_SERVICE_API ServicesArray *GetServices (UserDetails *user_p, GrassrootsServer *grassroots_p);
 
 /**
  * Free the ServicesArray containing the Ensembl Services.
