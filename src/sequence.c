@@ -27,6 +27,8 @@
 #include "byte_buffer.h"
 #include "string_utils.h"
 
+#include "string_parameter.h"
+
 
 #ifdef _DEBUG
 	#define SEQUENCE_DEBUG	(STM_LEVEL_FINE)
@@ -75,23 +77,21 @@ static json_t *GetSequencesById (const char * const id_s, const char * const con
 
 json_t *RunSequenceSearch (ParameterSet *params_p, CurlTool *curl_tool_p)
 {
-	SharedType value;
+	const char *id_s = NULL;
 	json_t *resource_json_p = NULL;
 
-	if (GetParameterValueFromParameterSet (params_p, ES_SEQUENCE_ID.npt_name_s, &value, true))
+	if (GetCurrentStringParameterValueFromParameterSet (params_p, ES_SEQUENCE_ID.npt_name_s, &id_s))
 		{
-			const char *id_s = value.st_string_value_s;
-
 			if (!IsStringEmpty (id_s))
 				{
+					const char *seq_type_s = NULL;
 
-					if (GetParameterValueFromParameterSet (params_p, ES_SEQUENCE_TYPE.npt_name_s, &value, true))
+					if (GetCurrentStringParameterValueFromParameterSet (params_p, ES_SEQUENCE_TYPE.npt_name_s, &seq_type_s))
 						{
-							const char *seq_type_s = value.st_string_value_s;
+							const char *value_s = NULL;
 
-							if (GetParameterValueFromParameterSet (params_p, ES_CONTENT_TYPE.npt_name_s, &value, true))
+							if (GetCurrentStringParameterValueFromParameterSet (params_p, ES_CONTENT_TYPE.npt_name_s, &value_s))
 								{
-									const char *value_s = value.st_string_value_s;
 									const char *content_type_s = NULL;
 									uint32 i;
 
@@ -208,16 +208,13 @@ bool AddSequenceParameters (ServiceData *data_p, ParameterSet *param_set_p)
 {
 	Parameter *param_p = NULL;
 	bool success_flag = false;
-	SharedType def;
 	ParameterGroup *group_p = CreateAndAddParameterGroupToParameterSet ("Sequence Parameters", false, data_p, param_set_p);
 
-	def.st_string_value_s = NULL;
-
-	if ((param_p = EasyCreateAndAddParameterToParameterSet (data_p, param_set_p, group_p, ES_SEQUENCE_ID.npt_type, ES_SEQUENCE_ID.npt_name_s, "Sequence ID", "An Ensembl stable ID", def, PL_ALL)) != NULL)
+	if ((param_p = EasyCreateAndAddStringParameterToParameterSet (data_p, param_set_p, group_p, ES_SEQUENCE_ID.npt_type, ES_SEQUENCE_ID.npt_name_s, "Sequence ID", "An Ensembl stable ID", NULL, PL_ALL)) != NULL)
 		{
-			LinkedList *options_p = CreateParameterOptionsList ();
-
-			if (options_p)
+			if ((param_p = EasyCreateAndAddStringParameterToParameterSet (data_p, param_set_p, group_p, ES_SEQUENCE_TYPE.npt_type, ES_SEQUENCE_TYPE.npt_name_s, "Type",
+			  "Type of sequence. Defaults to genomic where applicable, i.e. not translations. cdna refers to the spliced transcript sequence with UTR; cds refers to the spliced transcript sequence without UTR.",
+				*S_SEQ_SEQUENCE_TYPES_PP, PL_ALL)) != NULL)
 				{
 					uint32 i;
 
@@ -225,9 +222,7 @@ bool AddSequenceParameters (ServiceData *data_p, ParameterSet *param_set_p)
 
 					for (i = 0; i < ST_NUM_TYPES; ++ i)
 						{
-							def.st_string_value_s = (char *) (* (S_SEQ_SEQUENCE_TYPES_PP + i));
-
-							if (!CreateAndAddParameterOption (options_p, def, NULL, PT_STRING))
+							if (!CreateAndAddStringParameterOption ((StringParameter *) param_p, * (S_SEQ_SEQUENCE_TYPES_PP + i), NULL))
 								{
 									i = ST_NUM_TYPES;
 									success_flag = false;
@@ -236,24 +231,14 @@ bool AddSequenceParameters (ServiceData *data_p, ParameterSet *param_set_p)
 
 					if (success_flag)
 						{
-							def.st_string_value_s = (char *) (*S_SEQ_SEQUENCE_TYPES_PP);
 
-							if ((param_p = EasyCreateAndAddParameterToParameterSet (data_p, param_set_p, group_p, ES_SEQUENCE_TYPE.npt_type, ES_SEQUENCE_TYPE.npt_name_s, "Type",
-							  "Type of sequence. Defaults to genomic where applicable, i.e. not translations. cdna refers to the spliced transcript sequence with UTR; cds refers to the spliced transcript sequence without UTR.",
-								def, PL_ALL)) != NULL)
+							if ((param_p = EasyCreateAndAddStringParameterToParameterSet (data_p, param_set_p, group_p, ES_CONTENT_TYPE.npt_type, ES_CONTENT_TYPE.npt_name_s, "Output Format",
+							  "The filetype that any results will be in",
+							 *S_SEQ_FORMAT_NAMES_PP, PL_ALL)) != NULL)
 								{
-
-									def.st_string_value_s = (char *) (*S_SEQ_FORMAT_NAMES_PP);
-
-									if ((param_p = EasyCreateAndAddParameterToParameterSet (data_p, param_set_p, group_p, ES_CONTENT_TYPE.npt_type, ES_CONTENT_TYPE.npt_name_s, "Output Format",
-									  "The filetype that any results will be in",
-									 def, PL_ALL)) != NULL)
-
 									for (i = 0; i < SO_NUM_FORMATS; ++ i)
 										{
-											def.st_string_value_s = (char *) (* (S_SEQ_FORMAT_NAMES_PP + i));
-
-											if (!CreateAndAddParameterOptionToParameter (param_p, def, NULL))
+											if (!CreateAndAddStringParameterOption ((StringParameter *) param_p, * (S_SEQ_FORMAT_NAMES_PP + i), NULL))
 												{
 													i = SO_NUM_FORMATS;
 													success_flag = false;
@@ -263,16 +248,13 @@ bool AddSequenceParameters (ServiceData *data_p, ParameterSet *param_set_p)
 								}
 							else
 								{
-									FreeLinkedList (options_p);
+									success_flag = false;
 								}
-						}
-					else
-						{
-							FreeLinkedList (options_p);
-						}
 
-					FreeLinkedList (options_p);
+						}		/* if (success_flag) */
+
 				}
+
 		}
 
 	return success_flag;
