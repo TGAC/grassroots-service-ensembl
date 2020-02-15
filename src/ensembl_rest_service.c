@@ -47,17 +47,17 @@ static EnsemblRestServiceData *AllocateEnsemblRestServiceData (void);
 
 static void FreeEnsemblRestServiceData (EnsemblRestServiceData *data_p);
 
-static const char *GetEnsemblRestServiceName (Service *service_p);
+static const char *GetEnsemblRestServiceName (const Service *service_p);
 
-static const char *GetEnsemblRestServiceDesciption (Service *service_p);
+static const char *GetEnsemblRestServiceDesciption (const Service *service_p);
 
-static const char *GetEnsemblRestServiceURI (Service *service_p);
+static const char *GetEnsemblRestServiceURI (const Service *service_p);
 
 static ParameterSet *GetEnsemblRestServiceParameters (Service *service_p, Resource *resource_p, UserDetails *user_p);
 
 static void ReleaseEnsemblRestServiceParameters (Service *service_p, ParameterSet *params_p);
 
-static bool GetEnsemblRestServiceParameterTypesForNamedParameters (struct Service *service_p, const char *param_name_s, ParameterType *pt_p);
+static bool GetEnsemblRestServiceParameterTypesForNamedParameters (const Service *service_p, const char *param_name_s, ParameterType *pt_p);
 
 
 static ServiceJobSet *RunEnsemblRestService (Service *service_p, ParameterSet *param_set_p, UserDetails *user_p, ProvidersStateTable *providers_p);
@@ -179,19 +179,19 @@ static void FreeEnsemblRestServiceData (EnsemblRestServiceData *data_p)
 }
 
 
-static const char *GetEnsemblRestServiceName (Service * UNUSED_PARAM (service_p))
+static const char *GetEnsemblRestServiceName (const Service * UNUSED_PARAM (service_p))
 {
 	return "Ensembl Plants service";
 }
 
 
-static const char *GetEnsemblRestServiceDesciption (Service * UNUSED_PARAM (service_p))
+static const char *GetEnsemblRestServiceDesciption (const Service * UNUSED_PARAM (service_p))
 {
 	return "A service to access the Ensembl Plants data";
 }
 
 
-static const char *GetEnsemblRestServiceURI (Service * UNUSED_PARAM (service_p))
+static const char *GetEnsemblRestServiceURI (const Service * UNUSED_PARAM (service_p))
 {
 	return "http://plants.ensembl.org/index.html";
 }
@@ -215,7 +215,7 @@ static ParameterSet *GetEnsemblRestServiceParameters (Service *service_p, Resour
 }
 
 
-static bool GetEnsemblRestServiceParameterTypesForNamedParameters (struct Service *service_p, const char *param_name_s, ParameterType *pt_p)
+static bool GetEnsemblRestServiceParameterTypesForNamedParameters (const  Service *service_p, const char *param_name_s, ParameterType *pt_p)
 {
 	bool success_flag = true;
 
