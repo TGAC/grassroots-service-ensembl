@@ -269,7 +269,7 @@ static ServiceJobSet *RunEnsemblRestService (Service *service_p, ParameterSet *p
 
 											SetServiceJobStatus (job_p, OS_ERROR);
 
-											AddErrorToServiceJob (job_p, ERROR_S, "Failed to store result");
+											AddErrorMessageToServiceJob (job_p, ERROR_S, "Failed to store result");
 
 											ConvertUUIDToString (job_p -> sj_id, uuid_s);
 
