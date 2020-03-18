@@ -196,7 +196,7 @@ static const char *GetEnsemblRestServiceDescription (const Service * UNUSED_PARA
 
 static const char *GetEnsemblRestServiceAlias (const Service * UNUSED_PARAM (service_p))
 {
-	return "ensembl";
+	return "ensembl/search";
 }
 
 
