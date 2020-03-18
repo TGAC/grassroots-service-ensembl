@@ -49,7 +49,9 @@ static void FreeEnsemblRestServiceData (EnsemblRestServiceData *data_p);
 
 static const char *GetEnsemblRestServiceName (const Service *service_p);
 
-static const char *GetEnsemblRestServiceDesciption (const Service *service_p);
+static const char *GetEnsemblRestServiceDescription (const Service *service_p);
+
+static const char *GetEnsemblRestServiceAlias (const Service *service_p);
 
 static const char *GetEnsemblRestServiceURI (const Service *service_p);
 
@@ -88,7 +90,8 @@ ServicesArray *GetServices (UserDetails *user_p, GrassrootsServer *grassroots_p)
 						{
 							if (InitialiseService (service_p,
 								GetEnsemblRestServiceName,
-								GetEnsemblRestServiceDesciption,
+								GetEnsemblRestServiceDescription,
+								GetEnsemblRestServiceAlias,
 								GetEnsemblRestServiceURI,
 								RunEnsemblRestService,
 								IsFileForEnsemblRestService,
@@ -185,9 +188,15 @@ static const char *GetEnsemblRestServiceName (const Service * UNUSED_PARAM (serv
 }
 
 
-static const char *GetEnsemblRestServiceDesciption (const Service * UNUSED_PARAM (service_p))
+static const char *GetEnsemblRestServiceDescription (const Service * UNUSED_PARAM (service_p))
 {
 	return "A service to access the Ensembl Plants data";
+}
+
+
+static const char *GetEnsemblRestServiceAlias (const Service * UNUSED_PARAM (service_p))
+{
+	return "ensembl";
 }
 
 
