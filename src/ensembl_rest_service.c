@@ -26,6 +26,7 @@
 #include "service_job.h"
 #include "json_tools.h"
 
+#include "uuid_util.h"
 
 #include "sequence.h"
 
