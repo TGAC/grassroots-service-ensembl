@@ -177,7 +177,7 @@ static EnsemblRestServiceData *AllocateEnsemblRestServiceData (void)
 
 static void FreeEnsemblRestServiceData (EnsemblRestServiceData *data_p)
 {
-	WipeJSON (data_p -> ersd_results_p);
+	json_decref (data_p -> ersd_results_p);
 
 	FreeMemory (data_p);
 }
