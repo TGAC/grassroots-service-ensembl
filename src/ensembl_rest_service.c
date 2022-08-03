@@ -252,7 +252,7 @@ static ServiceJobSet *RunEnsemblRestService (Service *service_p, ParameterSet *p
 
 	if (service_p -> se_jobs_p)
 		{
-			CurlTool *curl_tool_p = AllocateCurlTool (CM_MEMORY);
+			CurlTool *curl_tool_p = AllocateMemoryCurlTool (0);
 			ServiceJob *job_p = GetServiceJobFromServiceJobSet (service_p -> se_jobs_p, 0);
 
 			SetServiceJobStatus (job_p, OS_FAILED_TO_START);
