@@ -114,7 +114,7 @@ json_t *RunSequenceSearch (ParameterSet *params_p, CurlTool *curl_tool_p)
 													PrintJSONToLog (STM_LEVEL_FINE, __FILE__, __LINE__, seq_res_json_p, "seq_res_json_p:\n");
 													#endif
 
-													resource_json_p = GetResourceAsJSONByParts (PROTOCOL_INLINE_S, NULL, id_s, seq_res_json_p);
+													resource_json_p = GetDataResourceAsJSONByParts (PROTOCOL_INLINE_S, NULL, id_s, seq_res_json_p);
 
 													json_decref (seq_res_json_p);
 

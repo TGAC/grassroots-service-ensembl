@@ -56,7 +56,7 @@ static const char *GetEnsemblRestServiceAlias (const Service *service_p);
 
 static const char *GetEnsemblRestServiceURI (const Service *service_p);
 
-static ParameterSet *GetEnsemblRestServiceParameters (Service *service_p, Resource *resource_p, UserDetails *user_p);
+static ParameterSet *GetEnsemblRestServiceParameters (Service *service_p, DataResource *resource_p, UserDetails *user_p);
 
 static void ReleaseEnsemblRestServiceParameters (Service *service_p, ParameterSet *params_p);
 
@@ -65,7 +65,7 @@ static bool GetEnsemblRestServiceParameterTypesForNamedParameters (const Service
 
 static ServiceJobSet *RunEnsemblRestService (Service *service_p, ParameterSet *param_set_p, UserDetails *user_p, ProvidersStateTable *providers_p);
 
-static ParameterSet *IsFileForEnsemblRestService (Service *service_p, Resource *resource_p, Handler *handler_p);
+static ParameterSet *IsFileForEnsemblRestService (Service *service_p, DataResource *resource_p, Handler *handler_p);
 
 static bool CloseEnsemblRestService (Service *service_p);
 
@@ -207,7 +207,7 @@ static const char *GetEnsemblRestServiceURI (const Service * UNUSED_PARAM (servi
 }
 
 
-static ParameterSet *GetEnsemblRestServiceParameters (Service *service_p, Resource * UNUSED_PARAM (resource_p), UserDetails * UNUSED_PARAM (user_p))
+static ParameterSet *GetEnsemblRestServiceParameters (Service *service_p, DataResource * UNUSED_PARAM (resource_p), UserDetails * UNUSED_PARAM (user_p))
 {
 	ParameterSet *param_set_p = AllocateParameterSet ("EnsemblRest service parameters", "The parameters used for the EnsemblRest service");
 
@@ -314,7 +314,7 @@ static ServiceJobSet *RunEnsemblRestService (Service *service_p, ParameterSet *p
 
 
 
-static ParameterSet *IsFileForEnsemblRestService (Service * UNUSED_PARAM (service_p), Resource * UNUSED_PARAM (resource_p), Handler * UNUSED_PARAM (handler_p))
+static ParameterSet *IsFileForEnsemblRestService (Service * UNUSED_PARAM (service_p), DataResource * UNUSED_PARAM (resource_p), Handler * UNUSED_PARAM (handler_p))
 {
 	return NULL;
 }
