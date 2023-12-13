@@ -56,14 +56,14 @@ static const char *GetEnsemblRestServiceAlias (const Service *service_p);
 
 static const char *GetEnsemblRestServiceURI (const Service *service_p);
 
-static ParameterSet *GetEnsemblRestServiceParameters (Service *service_p, DataResource *resource_p, UserDetails *user_p);
+static ParameterSet *GetEnsemblRestServiceParameters (Service *service_p, DataResource *resource_p, User *user_p);
 
 static void ReleaseEnsemblRestServiceParameters (Service *service_p, ParameterSet *params_p);
 
 static bool GetEnsemblRestServiceParameterTypesForNamedParameters (const Service *service_p, const char *param_name_s, ParameterType *pt_p);
 
 
-static ServiceJobSet *RunEnsemblRestService (Service *service_p, ParameterSet *param_set_p, UserDetails *user_p, ProvidersStateTable *providers_p);
+static ServiceJobSet *RunEnsemblRestService (Service *service_p, ParameterSet *param_set_p, User *user_p, ProvidersStateTable *providers_p);
 
 static ParameterSet *IsFileForEnsemblRestService (Service *service_p, DataResource *resource_p, Handler *handler_p);
 
@@ -75,7 +75,7 @@ static ServiceMetadata *GetEnsemblRestServiceMetadata (Service *service_p);
  * API FUNCTIONS
  */
 
-ServicesArray *GetServices (UserDetails *user_p, GrassrootsServer *grassroots_p)
+ServicesArray *GetServices (User *user_p, GrassrootsServer *grassroots_p)
 {
 	Service *service_p = (Service *) AllocMemory (sizeof (Service));
 
@@ -207,7 +207,7 @@ static const char *GetEnsemblRestServiceURI (const Service * UNUSED_PARAM (servi
 }
 
 
-static ParameterSet *GetEnsemblRestServiceParameters (Service *service_p, DataResource * UNUSED_PARAM (resource_p), UserDetails * UNUSED_PARAM (user_p))
+static ParameterSet *GetEnsemblRestServiceParameters (Service *service_p, DataResource * UNUSED_PARAM (resource_p), User * UNUSED_PARAM (user_p))
 {
 	ParameterSet *param_set_p = AllocateParameterSet ("EnsemblRest service parameters", "The parameters used for the EnsemblRest service");
 
@@ -243,7 +243,7 @@ static void ReleaseEnsemblRestServiceParameters (Service * UNUSED_PARAM (service
 }
 
 
-static ServiceJobSet *RunEnsemblRestService (Service *service_p, ParameterSet *param_set_p, UserDetails * UNUSED_PARAM (user_p), ProvidersStateTable * UNUSED_PARAM (providers_p))
+static ServiceJobSet *RunEnsemblRestService (Service *service_p, ParameterSet *param_set_p, User * UNUSED_PARAM (user_p), ProvidersStateTable * UNUSED_PARAM (providers_p))
 {
 	EnsemblRestServiceData *data_p = (EnsemblRestServiceData *) service_p -> se_data_p;
 

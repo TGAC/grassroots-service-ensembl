@@ -34,13 +34,13 @@ extern "C"
 /**
  * Get the ServicesArray containing the Ensembl Services.
  *
- * @param user_p The UserDetails for the user trying to access the services.
+ * @param user_p The User for the user trying to access the services.
  * This can be <code>NULL</code>.
  * @return The ServicesArray containing all of the Ensembl Services or
  * <code>NULL</code> upon error.
  * @ingroup ensembl_rest_service
  */
-ENSEMBL_REST_SERVICE_API ServicesArray *GetServices (UserDetails *user_p, GrassrootsServer *grassroots_p);
+ENSEMBL_REST_SERVICE_API ServicesArray *GetServices (User *user_p, GrassrootsServer *grassroots_p);
 
 /**
  * Free the ServicesArray containing the Ensembl Services.
