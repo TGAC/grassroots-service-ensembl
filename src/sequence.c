@@ -222,7 +222,7 @@ bool AddSequenceParameters (ServiceData *data_p, ParameterSet *param_set_p)
 
 					for (i = 0; i < ST_NUM_TYPES; ++ i)
 						{
-							if (!CreateAndAddStringParameterOption ((StringParameter *) param_p, * (S_SEQ_SEQUENCE_TYPES_PP + i), NULL))
+							if (!CreateAndAddStringParameterOption (param_p, * (S_SEQ_SEQUENCE_TYPES_PP + i), NULL))
 								{
 									i = ST_NUM_TYPES;
 									success_flag = false;
@@ -238,7 +238,7 @@ bool AddSequenceParameters (ServiceData *data_p, ParameterSet *param_set_p)
 								{
 									for (i = 0; i < SO_NUM_FORMATS; ++ i)
 										{
-											if (!CreateAndAddStringParameterOption ((StringParameter *) param_p, * (S_SEQ_FORMAT_NAMES_PP + i), NULL))
+											if (!CreateAndAddStringParameterOption (param_p, * (S_SEQ_FORMAT_NAMES_PP + i), NULL))
 												{
 													i = SO_NUM_FORMATS;
 													success_flag = false;
